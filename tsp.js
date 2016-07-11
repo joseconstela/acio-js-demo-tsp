@@ -1,9 +1,9 @@
 /*
- * 0.0.1 - 29.06.16
- * Experimental.
- *
- * Original code: https://github.com/parano/GeneticAlgorithm-TSP
- */
+* 0.0.1 - 29.06.16
+* Experimental.
+*
+* Original code: https://github.com/parano/GeneticAlgorithm-TSP
+*/
 
 Array.prototype.clone = function() { return this.slice(0); }
 Array.prototype.shuffle = function() {
@@ -370,27 +370,24 @@ points = [{"x":780,"y":560},{"x":631,"y":173},{"x":452,"y":237},{"x":789,"y":506
 
 GAInitialize();
 
-/* Method 1 */
-setInterval(iteration, 10);
 function iteration() {
-  GANextGeneration();
+  if (lastReported === bestValue) {
+    GANextGeneration();
+    return true;
+  };
+  lastReported = bestValue;
+
   if(tspDemoLog !== null) {
     showResults();
-  }
-  // showResults();
-}
-
-setInterval(function() {
-  if (lastReported === bestValue) return true;
-  lastReported = bestValue;
-  if (tspDemoLog === null) {
+  } else {
     wqResult( ~~(bestValue) );
   }
-},1000);
+
+  GANextGeneration();
+}
+
+/* Method 1 */
+setInterval(iteration, 10);
 
 /* Method 2 */
-/* while(true) {
-  GANextGeneration();
-  wqResult( ~~(bestValue) );
-  // showResults();
-} */
+// while(true) { iteration(); }
