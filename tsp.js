@@ -356,13 +356,6 @@ function countDistances() {
   }
 }
 
-function showResults() {
-  document.getElementById('cities').innerHTML = points.length;
-  document.getElementById('generation').innerHTML = currentGeneration;
-  document.getElementById('mutationTimes').innerHTML = mutationTimes;
-  document.getElementById('bestValue').innerHTML = ~~(bestValue);
-}
-
 initData();
 
 // 500 cities
@@ -370,24 +363,18 @@ points = [{"x":780,"y":560},{"x":631,"y":173},{"x":452,"y":237},{"x":789,"y":506
 
 GAInitialize();
 
-function iteration() {
+/* Method 1 */
+setInterval(GANextGeneration, 10);
+
+/* Method 2 */
+// while(true) { GANextGeneration(); }
+
+// Report results every second
+setInterval(function() {
   if (lastReported === bestValue) {
-    GANextGeneration();
     return true;
   };
   lastReported = bestValue;
 
-  if(tspDemoLog !== null) {
-    showResults();
-  } else {
-    wqResult( ~~(bestValue) );
-  }
-
-  GANextGeneration();
-}
-
-/* Method 1 */
-setInterval(iteration, 10);
-
-/* Method 2 */
-// while(true) { iteration(); }
+  wqResult( ~~(bestValue), false );
+}, 2000)
