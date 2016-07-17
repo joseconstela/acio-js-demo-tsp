@@ -376,5 +376,5 @@ setInterval(function() {
   };
   lastReported = bestValue;
 
-  wqResult( ~~(bestValue), false );
-}, 2000)
+  result( ~~(bestValue), false );
+}, 1000)
